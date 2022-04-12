@@ -1,5 +1,4 @@
-import React from "react";
-
+import React, { useState, useEffect } from "react";
 import {
   StyleSheet,
   TouchableOpacity,
@@ -12,7 +11,7 @@ import Coin from "./Coin";
 
 import colors from "../constants/colors";
 
-import { SAMPLE_DATA } from "../data/sampleData";
+import { getCoins } from "../services/cryptoService";
 
 const Header = () => {
   return (
@@ -25,10 +24,22 @@ const Header = () => {
 };
 
 const Coins = ({ onSelectCoin }) => {
+  const [coins, setCoins] = useState([]);
+
+  const getMarketData = async () => {
+    const marketData = await getCoins();
+
+    setCoins(marketData);
+  };
+
+  useEffect(() => {
+    getMarketData();
+  }, []);
+
   return (
     <View style={styles.container}>
       <FlatList
-        data={SAMPLE_DATA}
+        data={coins}
         renderItem={({ item }) => (
           <TouchableOpacity onPress={() => onSelectCoin(item)}>
             <Coin {...item} />

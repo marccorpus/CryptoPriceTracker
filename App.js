@@ -59,6 +59,7 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingHorizontal: 16,
     paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
+    paddingBottom: Platform.OS === "android" ? 8 : 0,
   },
   bottomSheet: {
     shadowColor: colors.Black,
